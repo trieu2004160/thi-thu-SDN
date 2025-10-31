@@ -56,19 +56,8 @@ function getSupabaseClient(): SupabaseClient {
   return client
 }
 
-// Export singleton client - use try-catch to handle missing env vars during build
-let supabase: SupabaseClient
-
-try {
-  supabase = getSupabaseClient()
-} catch (error) {
-  // During build, if env vars are missing, create a dummy client
-  // This is safe because actual API calls will fail gracefully
-  supabase = createClient('https://placeholder.supabase.co', 'placeholder-key')
-  if (process.env.NODE_ENV !== 'production') {
-    console.warn('[WARNING] Using placeholder Supabase client - set env variables for proper functionality')
-  }
-}
+// Export singleton client
+const supabase = getSupabaseClient()
 
 export { supabase }
 

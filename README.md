@@ -66,15 +66,19 @@ npm start
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+**📖 Xem hướng dẫn chi tiết tại [DEPLOYMENT.md](DEPLOYMENT.md)**
+
+### Quick Start - Deploy to Vercel
 
 1. Push your code to GitHub
 2. Go to [Vercel](https://vercel.com)
 3. Import your GitHub repository
-4. Add environment variables in Vercel dashboard:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+4. **⚠️ QUAN TRỌNG**: Add environment variables in Vercel dashboard:
+   - `NEXT_PUBLIC_SUPABASE_URL` = `https://your-project-id.supabase.co`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY` = `eyJ...` (JWT token)
 5. Deploy!
+
+**💡 Lỗi "fetch failed"?** Xem [DEPLOYMENT.md](DEPLOYMENT.md) để fix!
 
 ### Deploy to Other Platforms
 
