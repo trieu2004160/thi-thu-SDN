@@ -3,6 +3,9 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
+console.log('[DEBUG] Supabase URL:', supabaseUrl ? 'Set' : 'Not set');
+console.log('[DEBUG] Supabase Anon Key:', supabaseAnonKey ? 'Set' : 'Not set');
+
 // Validate URL format - must start with http:// or https://
 const isValidUrl = (url: string | undefined): boolean => {
   if (!url) return false
@@ -18,6 +21,10 @@ const isValidUrl = (url: string | undefined): boolean => {
 let supabase: SupabaseClient
 
 if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('[DEBUG] Missing environment variables:', {
+    supabaseUrl: !!supabaseUrl,
+    supabaseAnonKey: !!supabaseAnonKey
+  });
   throw new Error(
     'Missing Supabase environment variables!\n\n' +
     'Please update .env.local file with:\n' +
@@ -28,6 +35,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 if (!isValidUrl(supabaseUrl)) {
+  console.error('[DEBUG] Invalid Supabase URL:', supabaseUrl);
   throw new Error(
     'Invalid NEXT_PUBLIC_SUPABASE_URL!\n\n' +
     `Current value: ${supabaseUrl}\n\n` +
@@ -40,7 +48,11 @@ if (!isValidUrl(supabaseUrl)) {
   )
 }
 
+console.log('[DEBUG] Creating Supabase client...');
+
 supabase = createClient(supabaseUrl, supabaseAnonKey)
+
+console.log('[DEBUG] Supabase client created successfully');
 
 export { supabase }
 

@@ -7,13 +7,18 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params
+    console.log('[DEBUG] GET /api/recipes/[id] - Starting request');
+    const { id } = params;
+    console.log('[DEBUG] Recipe ID:', id);
 
+    console.log('[DEBUG] Attempting to fetch recipe from Supabase...');
     const { data, error } = await supabase
       .from('recipes')
       .select('*')
       .eq('id', id)
       .single()
+    
+    console.log('[DEBUG] Supabase response:', { data, error });
 
     if (error) {
       if (error.code === 'PGRST116') {
@@ -43,8 +48,12 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params
-    const body = await request.json()
+    console.log('[DEBUG] PUT /api/recipes/[id] - Starting request');
+    const { id } = params;
+    console.log('[DEBUG] Recipe ID to update:', id);
+    
+    const body = await request.json();
+    console.log('[DEBUG] Request body:', body);
     const { title, ingredients, tags, image_url } = body
 
     // Validation
@@ -103,7 +112,9 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params
+    console.log('[DEBUG] DELETE /api/recipes/[id] - Starting request');
+    const { id } = params;
+    console.log('[DEBUG] Recipe ID to delete:', id);
 
     const { error } = await supabase
       .from('recipes')
