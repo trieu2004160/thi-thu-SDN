@@ -4,11 +4,11 @@ import { supabase } from '@/lib/supabase'
 // GET /api/recipes/[id] - Get a single recipe by ID
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     console.log('[DEBUG] GET /api/recipes/[id] - Starting request');
-    const { id } = params;
+    const { id } = await params;
     console.log('[DEBUG] Recipe ID:', id);
 
     console.log('[DEBUG] Attempting to fetch recipe from Supabase...');
@@ -45,11 +45,11 @@ export async function GET(
 // PUT /api/recipes/[id] - Update a recipe
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     console.log('[DEBUG] PUT /api/recipes/[id] - Starting request');
-    const { id } = params;
+    const { id } = await params;
     console.log('[DEBUG] Recipe ID to update:', id);
     
     const body = await request.json();
@@ -109,11 +109,11 @@ export async function PUT(
 // DELETE /api/recipes/[id] - Delete a recipe
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     console.log('[DEBUG] DELETE /api/recipes/[id] - Starting request');
-    const { id } = params;
+    const { id } = await params;
     console.log('[DEBUG] Recipe ID to delete:', id);
 
     const { error } = await supabase
